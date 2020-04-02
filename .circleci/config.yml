@@ -41,6 +41,7 @@ jobs:
       name: node/default
     steps:
       - checkout
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -48,13 +49,14 @@ jobs:
       - run: chmod +x ./setup_libxcb.sh
       - run: sh ./setup_libxcb.sh
       - run: npm install
+
       - save_cache:
           paths:
             - node_modules
           key: demo-{{ checksum "package.json" }}
 
       - run: npm test
-# workflows:
-#     build-and-test:
-#       jobs:
-#         - build-and-test
+workflows:
+    build-and-test:
+      jobs:
+        - build-and-test
