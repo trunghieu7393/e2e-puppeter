@@ -12,12 +12,17 @@ describe('TODOアプリのテスト', function () {
   before(async function (done) {
 
     // CIとlocalでpuppeteerの起動パラメータを切り替える
-    const params = process.env.CI ? {
-      // args: ['--no-sandbox', '--disable-setuid-sandbox']
-    } : {
-      headless: false,
-      slowMo: 250
-    };
+    // const params = process.env.CI ? {
+    //   headless: true,
+    //   args: ['--no-sandbox', '--disable-setuid-sandbox']
+    // } : {
+    //     headless: false,
+    //     slowMo: 250
+    //   };
+    const params = {
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    }
 
     browser = await puppeteer.launch(params);
     page = await browser.newPage();
