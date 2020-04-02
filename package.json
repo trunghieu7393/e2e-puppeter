@@ -50,11 +50,12 @@
     "serve-handler": "^6.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test:cov": "npm test -- --coverage --watchAll=false",
     "test:debug": "react-scripts --inspect-brk test --runInBand",
     "eject": "react-scripts eject",
+    "begin-test": "node test",
     "test": "node test"
   },
   "bugs": {

@@ -48,7 +48,7 @@ jobs:
           - demo-{{ checksum "package.json" }}
       - run: chmod +x ./setup_libxcb.sh
       - run: sh ./setup_libxcb.sh
-      - run: npm install
+      - run: npm start
 
       - save_cache:
           paths:
