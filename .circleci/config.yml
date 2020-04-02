@@ -20,7 +20,7 @@ jobs:
           paths:
             - node_modules
           key: demo-{{ checksum "package.json" }}
-      - run: npm start
+      - run: npm build
       - run: npm test
 workflows:
     build-and-test:
