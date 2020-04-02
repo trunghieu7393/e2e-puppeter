@@ -4,10 +4,10 @@ const Mocha = require('mocha');
 
 const runHttpServer = () => {
   const server = connect();
-  server.use(serveStatic(__dirname));
-  console.log('Server running on 8080');
+  server.use(serveStatic(__dirname + '/build'));
   return new Promise((resolve, reject) => {
-    server.listen(8080, () => {
+    server.listen(3000, () => {
+      console.log('Server running on 3000');
       return resolve(server)
     });
   });
@@ -15,7 +15,7 @@ const runHttpServer = () => {
 
 const runTest = () => {
   const mocha = new Mocha();
-  mocha.addFile('./demo/todo.spec.js');
+  mocha.addFile('./e2e/todoM.spec.js');
   return new Promise((resolve, reject) => {
     mocha.run(failures => {
       resolve(failures);
