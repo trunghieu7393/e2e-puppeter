@@ -41,7 +41,8 @@
     "react-test-renderer": "^16.8.6",
     "reactstrap": "^8.0.0",
     "serve-static": "^1.10.0",
-    "simple-line-icons": "^2.4.1"
+    "simple-line-icons": "^2.4.1",
+    "ip": "^1.1.5"
   },
   "devDependencies": {
     "http": "0.0.1-security",
@@ -51,15 +52,12 @@
   },
   "scripts": {
     "prestart": "echo I run before the build script",
-    "start": "pm2 start ./node_modules/react-scripts/scripts/start.js --name 'MND'",
-    "poststart": "npm run test",
-    "prebuild": "echo I run before the build script",
     "build": "react-scripts build",
-    "postbuild": "npm run test",
     "test:cov": "npm test -- --coverage --watchAll=false",
     "test:debug": "react-scripts --inspect-brk test --runInBand",
     "eject": "react-scripts eject",
-    "test": "node test"
+    "test": "sudo pm2 serve build --spa --port 3009",
+    "begin-test": "node test"
   },
   "bugs": {
     "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"

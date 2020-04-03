@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 const assert = require('assert');
+const ip = require('ip')
+// await page.goto(`http://${ip.address()}:3009/xxx`)
 
 describe('TODOアプリのテスト', function () {
 
@@ -7,7 +9,7 @@ describe('TODOアプリのテスト', function () {
   console.log("11-----------------")
   this.timeout(100000);
   console.log("222222-----------------")
-  const appUrl = 'http://localhost:3000/';
+  const appUrl = `http://${ip.address()}:3009/theme/typography`;
   let browser, page;
 
   before(async function (done) {

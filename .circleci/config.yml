@@ -23,9 +23,24 @@ jobs:
             - node_modules
           key: demo-{{ checksum "package.json" }}
 
-      - run: npm run start
-      # - run: npm run test
+      - run: npm run build
+
+      - run: npm run test
+      - run:
+          name: storing local IP address
+          command: node -p "require('ip').address()" > ip.txt
+      - run:
+          name: waiting for node server to start
+          command: 'wget --retry-connrefused --waitretry=5 -t 5 "http://$(cat ip.txt):3009" > /dev/null'
+
+      - run: npm run begin-test
 workflows:
     build-and-test:
       jobs:
         - build-and-test
+            filters: # using regex filters requires the entire branch to match
+                branches:
+                  only: # only branches matching the below regex filters will run
+                    - master
+                    - circleci-project-setup
+                    # - /feature\/.*/
