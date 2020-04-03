@@ -4,22 +4,27 @@ const assert = require('assert');
 describe('TODOアプリのテスト', function () {
 
   // mocha のタイムアウトを設定
-  this.timeout(10000);
-
+  console.log("11-----------------")
+  this.timeout(100000);
+  console.log("222222-----------------")
   const appUrl = 'http://localhost:3000/';
   let browser, page;
 
   before(async function (done) {
 
     // CIとlocalでpuppeteerの起動パラメータを切り替える
-    const params = process.env.CI ? {
+    // const params = process.env.CI ? {
+    //   headless: true,
+    //   args: ['--no-sandbox', '--disable-setuid-sandbox']
+    // } : {
+    //     headless: false,
+    //     slowMo: 250
+    //   };
+
+    const params = {
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox']
-    } : {
-        headless: false,
-        slowMo: 250
-      };
-
+    }
 
     browser = await puppeteer.launch(params);
     page = await browser.newPage();
@@ -27,21 +32,23 @@ describe('TODOアプリのテスト', function () {
       width: 1200,
       height: 1000,
     });
+    console.log("33333-----------------")
     // page.on('console', console.log);
     done();
   });
 
   describe('画面遷移時', () => {
-
+    console.log("44444444-----------------")
     before(async function (done) {
       await page.goto(appUrl, {
         waitUntil: 'networkidle2'
       });
       done();
     });
+    console.log("55555-----------------")
 
     it('タスクが2つ表示されていること', async () => {
-
+      console.log("6666666-----------------")
       await page.waitForSelector('.sidebar > .scrollbar-container > .nav > .nav-item:nth-child(10) > .nav-link')
       await page.click('.sidebar > .scrollbar-container > .nav > .nav-item:nth-child(10) > .nav-link')
 
@@ -52,6 +59,7 @@ describe('TODOアプリのテスト', function () {
       await page.click('.row:nth-child(1) > .col-12:nth-child(1) > .card > .card-header > strong')
 
       assert.equal('', '');
+      console.log("777777-----------------")
 
     });
   });
@@ -59,7 +67,9 @@ describe('TODOアプリのテスト', function () {
 
 
   after(async (done) => {
+    console.log("888888-----------------")
     browser.close();
+    console.log("999999-----------------")
     done();
   });
 
