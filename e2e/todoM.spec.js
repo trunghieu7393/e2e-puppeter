@@ -7,7 +7,7 @@ describe('TODOアプリのテスト', function () {
   console.log("11-----------------")
   this.timeout(500000);
   console.log("222222-----------------")
-  const appUrl = `http://localhost:3009/theme/typography`;
+  const appUrl = `http://localhost:3009/`;
   let browser, page;
 
   before(async function (done) {
@@ -20,34 +20,11 @@ describe('TODOアプリのテスト', function () {
         headless: false,
         slowMo: 250
       };
-    // const width = 1200;
-    // const height = 1000;
-    // const params = {
-    //   headless: false,
-    //   slowMo: 250,
-    //   args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    //   // args: [
-    //   //   `--window-size=${width},${height}`
-    //   // ],
-    // }
     console.log("33333+++++++++-----------------")
     browser = await puppeteer.launch(params);
     page = await browser.newPage();
     // await page.setViewport({ width: width, height: height })
 
-    // page.emulate({
-    //   viewport: {
-    //     width: 1200,
-    //     height: 2000
-    //   },
-    //   userAgent: ''
-    // });
-    // await page.setViewport({
-    //   width: width,
-    //   height: height,
-    // });
-    // console.log("33333-----------------")
-    // page.on('console', console.log);
     done();
   });
 
@@ -71,7 +48,7 @@ describe('TODOアプリのテスト', function () {
       await page.waitForSelector('.sidebar > .scrollbar-container > .nav > .nav-item:nth-child(3) > .nav-link')
       console.log("6666666-----------------3")
       await page.click('.sidebar > .scrollbar-container > .nav > .nav-item:nth-child(3) > .nav-link')
-      console.log("6666666-----------------4")
+      console.log("6666666----------------4")
 
       await page.waitForSelector('.card:nth-child(1) > .card-body > .row > .mb-4:nth-child(1) > h6')
       console.log("6666666-----------------5")
