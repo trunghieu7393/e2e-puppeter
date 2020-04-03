@@ -20,17 +20,21 @@ describe('TODOアプリのテスト', function () {
     //     headless: false,
     //     slowMo: 250
     //   };
-
+    const width = 1200;
+    const height = 600;
     const params = {
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: [
+        `--window-size=${width},${height}`
+      ],
     }
-
+    console.log("33333+++++++++-----------------")
     browser = await puppeteer.launch(params);
     page = await browser.newPage();
     await page.setViewport({
-      width: 1200,
-      height: 1000,
+      width: width,
+      height: height,
     });
     console.log("33333-----------------")
     // page.on('console', console.log);
