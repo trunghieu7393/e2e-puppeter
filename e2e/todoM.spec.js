@@ -5,7 +5,7 @@ describe('TODOアプリのテスト', function () {
 
   // mocha のタイムアウトを設定
   console.log("11-----------------")
-  this.timeout(100000);
+  this.timeout(500000);
   console.log("222222-----------------")
   const appUrl = `http://localhost:3009/theme/typography`;
   let browser, page;

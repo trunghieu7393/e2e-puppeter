@@ -25,12 +25,12 @@ jobs:
 
       - run: npm run build
 
-      - run: npm run test
+      - run: npm run serve
       - run:
           name: waiting for node server to start
           command: 'wget --retry-connrefused --waitretry=5 -t 5 "http://localhost:3009" > /dev/null'
 
-      - run: npm run begin-test
+      - run: npm run test
 workflows:
     build-and-test:
       jobs:
