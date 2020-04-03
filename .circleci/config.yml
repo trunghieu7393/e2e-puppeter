@@ -34,13 +34,13 @@ jobs:
           paths:
             - node_modules
           key: demo-{{ checksum "package.json" }}
+
       - run: npm run build
-  test-only:
-      - run: npm run test
+      - test-only: 
+        - npm run test
         requires:
           - build-and-test
 workflows:
     build-and-test:
       jobs:
         - build-and-test
-        - test-only
