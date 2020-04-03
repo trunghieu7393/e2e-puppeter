@@ -16,12 +16,16 @@ jobs:
       - run: sh ./setup_libxcb.sh
       - run: npm install
 
+      - run:
+        name: install pm2
+        command: 'npm install pm2 -g'
+
       - save_cache:
           paths:
             - node_modules
           key: demo-{{ checksum "package.json" }}
 
-      - run: npm run build
+      - run: npm run start
       # - run: npm run test
 workflows:
     build-and-test:

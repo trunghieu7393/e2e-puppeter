@@ -24,7 +24,7 @@ const runTest = () => {
 };
 
 (async () => {
-  const server = await runHttpServer();
+  // const server = await runHttpServer();
   const failures = await runTest();
   console.log('failures', failures);
   process.exit();

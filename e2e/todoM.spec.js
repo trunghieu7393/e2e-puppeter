@@ -33,6 +33,7 @@ describe('TODOアプリのテスト', function () {
     console.log("33333+++++++++-----------------")
     browser = await puppeteer.launch(params);
     page = await browser.newPage();
+    // await page.setViewport({ width: width, height: height })
 
     // page.emulate({
     //   viewport: {
@@ -77,8 +78,6 @@ describe('TODOアプリのテスト', function () {
         console.log(tweet);
         assert.equal(tweet, 'Brand Primary Color');
       }
-
-
       console.log("777777-----------------")
 
     });

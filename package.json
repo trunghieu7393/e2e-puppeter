@@ -51,8 +51,8 @@
   },
   "scripts": {
     "prestart": "echo I run before the build script",
-    "start": "BROWSER=none react-scripts start",
-    "poststart": "echo I run after the build script",
+    "start": "pm2 start ./node_modules/react-scripts/scripts/start.js --name 'MND'",
+    "poststart": "npm run test",
     "prebuild": "echo I run before the build script",
     "build": "react-scripts build",
     "postbuild": "npm run test",
