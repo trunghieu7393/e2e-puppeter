@@ -13,34 +13,34 @@ describe('TODOアプリのテスト', function () {
   before(async function (done) {
 
     // CIとlocalでpuppeteerの起動パラメータを切り替える
-    // const params = process.env.CI ? {
-    //   headless: true,
-    //   args: ['--no-sandbox', '--disable-setuid-sandbox']
-    // } : {
-    //     headless: false,
-    //     slowMo: 250
-    //   };
+    const params = process.env.CI ? {
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    } : {
+        headless: false,
+        slowMo: 250
+      };
     const width = 1200;
     const height = 1000;
-    const params = {
-      headless: true,
-      // slowMo: 250,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      // args: [
-      //   `--window-size=${width},${height}`
-      // ],
-    }
+    // const params = {
+    //   headless: false,
+    //   slowMo: 250,
+    //   args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    //   // args: [
+    //   //   `--window-size=${width},${height}`
+    //   // ],
+    // }
     console.log("33333+++++++++-----------------")
     browser = await puppeteer.launch(params);
     page = await browser.newPage();
 
-    page.emulate({
-      viewport: {
-        width: 1200,
-        height: 2000
-      },
-      userAgent: ''
-    });
+    // page.emulate({
+    //   viewport: {
+    //     width: 1200,
+    //     height: 2000
+    //   },
+    //   userAgent: ''
+    // });
     // await page.setViewport({
     //   width: width,
     //   height: height,
@@ -62,16 +62,23 @@ describe('TODOアプリのテスト', function () {
 
     it('タスクが2つ表示されていること', async () => {
       console.log("6666666-----------------")
-      await page.waitForSelector('.sidebar > .scrollbar-container > .nav > .nav-item:nth-child(10) > .nav-link')
-      await page.click('.sidebar > .scrollbar-container > .nav > .nav-item:nth-child(10) > .nav-link')
+      await page.waitForSelector('#root > .app > .app-header > .d-lg-none > .navbar-toggler-icon')
+      await page.click('#root > .app > .app-header > .d-lg-none > .navbar-toggler-icon')
 
-      await page.waitForSelector('.nav > .open > .nav-dropdown-items > .nav-item:nth-child(1) > .nav-link')
-      await page.click('.nav > .open > .nav-dropdown-items > .nav-item:nth-child(1) > .nav-link')
+      await page.waitForSelector('.sidebar > .scrollbar-container > .nav > .nav-item:nth-child(3) > .nav-link')
+      await page.click('.sidebar > .scrollbar-container > .nav > .nav-item:nth-child(3) > .nav-link')
 
-      await page.waitForSelector('.row:nth-child(1) > .col-12:nth-child(1) > .card > .card-header > strong')
-      await page.click('.row:nth-child(1) > .col-12:nth-child(1) > .card > .card-header > strong')
+      await page.waitForSelector('.card:nth-child(1) > .card-body > .row > .mb-4:nth-child(1) > h6')
+      await page.click('.card:nth-child(1) > .card-body > .row > .mb-4:nth-child(1) > h6')
 
-      assert.equal('', '');
+      const tweets = await page.$$('.card:nth-child(1) > .card-body > .row > .mb-4:nth-child(1) > h6');
+      for (let i = 0; i < tweets.length; i++) {
+        const tweet = await (await tweets[i].getProperty('innerText')).jsonValue();
+        console.log(tweet);
+        assert.equal(tweet, 'Brand Primary Color');
+      }
+
+
       console.log("777777-----------------")
 
     });
