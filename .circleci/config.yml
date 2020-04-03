@@ -21,11 +21,12 @@ jobs:
             - node_modules
           key: demo-{{ checksum "package.json" }}
 
-      - run: npm run build
+      - build-only:
+        - run: npm run build
       - test-only: 
-        - npm run test
+        - run: npm run test
         requires:
-          - build-and-test
+          - build-only
 workflows:
     build-and-test:
       jobs:
