@@ -1,17 +1,3 @@
-# workflows:
-#   version: 2
-#   build-test-and-deploy:
-#     jobs:
-#       - build
-#       - test1:
-#           requires:
-#             - build
-#       - test2:
-#           requires:
-#             - test1
-#       - deploy:
-#           requires:
-#             - test2
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
