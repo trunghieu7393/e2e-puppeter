@@ -9,7 +9,7 @@ describe('TODOアプリのテスト', function () {
   console.log("11-----------------")
   this.timeout(100000);
   console.log("222222-----------------")
-  const appUrl = `http://${ip.address()}:3009/theme/typography`;
+  const appUrl = `http://localhost:3009/theme/typography`;
   let browser, page;
 
   before(async function (done) {
