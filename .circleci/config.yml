@@ -1,43 +1,86 @@
 version: 2.1
-orbs:
-  node: node:13-slim
 jobs:
-  build-and-test:
-    executor:
-      name: node/default
-    steps:
-      - checkout
+  build: # runs not using Workflows must have a `build` job as entry point
+      working_directory: ~/app # directory where steps will run
+      docker: # run the steps with Docker
+        - image: node:13-slim # cai nay giong trong dockerfile
+      steps: # a collection of executable commands
+        - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - demo-{{ checksum "package.json" }}
-      - run: chmod +x ./setup_libxcb.sh
-      - run: sh ./setup_libxcb.sh
-      - run: npm install
-      - run:
-          name: install pm2
-          command: 'sudo npm install -g pm2'
-      - save_cache:
-          paths:
-            - node_modules
-          key: demo-{{ checksum "package.json" }}
+        # Download and cache dependencies
+        - restore_cache:
+            keys:
+            - demo-{{ checksum "package.json" }}
+        - run: chmod +x ./setup_libxcb.sh
+        - run: sh ./setup_libxcb.sh
+        - run: npm install
+        - run:
+            name: install pm2
+            command: 'sudo npm install -g pm2'
+        - save_cache:
+            paths:
+              - node_modules
+            key: demo-{{ checksum "package.json" }}
 
-      - run: npm run build
+        - run: npm run build
 
-      - run: npm run test
-      - run:
-          name: waiting for node server to start
-          command: 'wget --retry-connrefused --waitretry=5 -t 5 "http://localhost:3009" > /dev/null'
+        - run: npm run serve
+        - run:
+            name: waiting for node server to start
+            command: 'wget --retry-connrefused --waitretry=5 -t 5 "http://localhost:3009" > /dev/null'
 
-      - run: npm run begin-test
+        - run: npm run test
+
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
-            # filters: # using regex filters requires the entire branch to match
-            #     branches:
-            #       only: # only branches matching the below regex filters will run
-            #         - master
-            #         - circleci-project-setup
-            #         # - /feature\/.*/
+  version: 2
+  build_and_test:
+    jobs:
+      - build:
+          filters: # using regex filters requires the entire branch to match
+            branches:
+              only: # only branches matching the below regex filters will run
+                - master
+                - circleci-project-setup
+# version: 2.1
+# orbs:
+#   node: node:13-slim
+# jobs:
+#   build-and-test:
+#     executor:
+#       name: node/default
+#     steps:
+#       - checkout
+
+#       # Download and cache dependencies
+#       - restore_cache:
+#           keys:
+#           - demo-{{ checksum "package.json" }}
+#       - run: chmod +x ./setup_libxcb.sh
+#       - run: sh ./setup_libxcb.sh
+#       - run: npm install
+#       - run:
+#           name: install pm2
+#           command: 'sudo npm install -g pm2'
+#       - save_cache:
+#           paths:
+#             - node_modules
+#           key: demo-{{ checksum "package.json" }}
+
+#       - run: npm run build
+
+#       - run: npm run test
+#       - run:
+#           name: waiting for node server to start
+#           command: 'wget --retry-connrefused --waitretry=5 -t 5 "http://localhost:3009" > /dev/null'
+
+#       - run: npm run begin-test
+# workflows:
+#     build-and-test:
+#       jobs:
+#         - build-and-test
+#             # filters: # using regex filters requires the entire branch to match
+#             #     branches:
+#             #       only: # only branches matching the below regex filters will run
+#             #         - master
+#             #         - circleci-project-setup
+#             #         # - /feature\/.*/

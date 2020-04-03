@@ -41,8 +41,7 @@
     "react-test-renderer": "^16.8.6",
     "reactstrap": "^8.0.0",
     "serve-static": "^1.10.0",
-    "simple-line-icons": "^2.4.1",
-    "ip": "^1.1.5"
+    "simple-line-icons": "^2.4.1"
   },
   "devDependencies": {
     "http": "0.0.1-security",
@@ -56,8 +55,8 @@
     "test:cov": "npm test -- --coverage --watchAll=false",
     "test:debug": "react-scripts --inspect-brk test --runInBand",
     "eject": "react-scripts eject",
-    "test": "sudo pm2 serve build --spa --port 3009",
-    "begin-test": "node test"
+    "serve": "sudo pm2 serve build --spa --port 3009",
+    "test": "node test"
   },
   "bugs": {
     "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"

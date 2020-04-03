@@ -55,7 +55,7 @@ describe('TODOアプリのテスト', function () {
     console.log("44444444-----------------")
     before(async function (done) {
       await page.goto(appUrl, {
-        waitUntil: 'networkidle2'
+        waitUntil: 'networkidle0'
       });
       done();
     });
