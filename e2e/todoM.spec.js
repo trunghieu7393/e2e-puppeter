@@ -6,7 +6,7 @@ describe('TODOアプリのテスト', function () {
   // mocha のタイムアウトを設定
   this.timeout(10000);
 
-  const appUrl = 'http://localhost/';
+  const appUrl = 'http://localhost:3000/';
   let browser, page;
 
   before(async function (done) {
