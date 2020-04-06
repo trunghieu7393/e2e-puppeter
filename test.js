@@ -11,7 +11,7 @@ const runHttpServer = () => {
       return resolve(server)
     });
   });
-};
+}; 
 
 const runTest = () => {
   const mocha = new Mocha();
